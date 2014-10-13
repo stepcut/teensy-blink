@@ -166,11 +166,3 @@ void loop() {
    morse_P("ARDUINO");
 // loopBlink();
 }
-
-/*
-void main () {
-    setup();
-    loop();
-}
-
-*/
