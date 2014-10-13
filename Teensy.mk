@@ -1,3 +1,12 @@
+########################################################################
+#
+# To use you will need to uncomment these lines in,
+#  $(ARDUINO_DIR)/hardware/$(VENDOR)/boards.txt
+#
+# teensy31.build.option6=-DUSB_SERIAL
+# teensy31.build.option7=-DLAYOUT_US_ENGLISH
+#
+
 VENDOR              = teensy
 ARDUINO_CORE_PATH   = $(ARDUINO_DIR)/hardware/teensy/cores/teensy3
 BOARDS_TXT          = $(ARDUINO_DIR)/hardware/$(VENDOR)/boards.txt
