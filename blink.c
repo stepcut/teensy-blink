@@ -23,7 +23,7 @@
  */
 
 #include "Arduino.h"
-#include "avr_emulation.h"o
+#include "avr_emulation.h"
 #include <util/delay.h>
 
 // Teensy 3.1 has the LED on pin 13
