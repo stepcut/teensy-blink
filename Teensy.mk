@@ -94,11 +94,14 @@ ifndef MCU
     endif
 endif
 
+########################################################################
+# FLAGS
+
 CPPFLAGS += $(call PARSE_TEENSY,$(BOARD_TAG),build.option)
 
 CXXFLAGS += $(call PARSE_TEENSY,$(BOARD_TAG),build.cppoption)
 ifeq ("$(call PARSE_TEENSY,$(BOARD_TAG),build.gnu0x)","true")
-    CXXFLAGS      += -std=gnu++0x
+    CXXFLAGS_STD      += -std=gnu++0x
 endif
 
 ifeq ("$(call PARSE_TEENSY,$(BOARD_TAG),build.elide_constructors)", "true")
@@ -107,18 +110,11 @@ endif
 
 LDFLAGS +=  $(call PARSE_TEENSY,$(BOARD_TAG),build.linkoption) $(call PARSE_TEENSY,$(BOARD_TAG),build.additionalobject)
 
-
 ifneq ("$(call PARSE_TEENSY,$(BOARD_TAG),build.linkscript)",)
     LDFLAGS   += -T$(call PARSE_TEENSY,$(BOARD_TAG),build.linkscript)
 endif
 
+MONITOR_PORT = /bin/true
+AVRDUDE      = true
 
-RESET_CMD = $(ARDUINO_DIR)/hardware/tools/teensy_reboot
-ARDUINO_PORT = /bin/true
-AVRDUDE   = $(ARDUINO_DIR)/hardware/tools/teensy_post_compile -board=$(BOARD_TAG) -tools=$(abspath $(ARDUINO_DIR)/hardware/tools) -path=$(abspath $(OBJDIR)) -file=$(TARGET) ; $(ARDUINO_DIR)/hardware/tools/teensy_reboot ; true
-
-
-all: 		$(TARGET_EEP) $(TARGET_HEX)
-
-whereisteensy:
-	@echo $(ARDUINO_DIR)/hardware/tools/teensy
+RESET_CMD = nohup $(ARDUINO_DIR)/hardware/tools/teensy_post_compile -board=$(BOARD_TAG) -tools=$(abspath $(ARDUINO_DIR)/hardware/tools) -path=$(abspath $(OBJDIR)) -file=$(TARGET) > /dev/null ; $(ARDUINO_DIR)/hardware/tools/teensy_reboot ; true
